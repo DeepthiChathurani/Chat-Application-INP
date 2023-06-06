@@ -30,6 +30,6 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Button>
-      <Label fx:id="lblMasseage" layoutX="87.0" layoutY="301.0" prefHeight="23.0" prefWidth="266.0" />
+      <Label fx:id="lblMessage" layoutX="87.0" layoutY="301.0" prefHeight="23.0" prefWidth="266.0" />
    </children>
 </AnchorPane>
