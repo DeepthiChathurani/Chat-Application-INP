@@ -17,11 +17,11 @@ public class LoginController {
 
     public void btnLogin(ActionEvent actionEvent) throws IOException {
         String userName= txtUserName.getText();
-        if(userName.equals("Client_One")){
+        if(userName.equals("Client1")){
             Navigation.navigation(Routes.CLIENT1,pane);
-        } else if (userName.equals("Client_Two")) {
+        } else if (userName.equals("Client2")) {
             Navigation.navigation(Routes.CLIENT2,pane);
-        }else if (userName.equals("Client_Three")) {
+        }else if (userName.equals("Client3")) {
             Navigation.navigation(Routes.CLIENT3,pane);
         }else {
             lblMessage.setVisible(true);
