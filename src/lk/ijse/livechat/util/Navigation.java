@@ -19,18 +19,18 @@ public class Navigation {
                 window.setTitle("Login Form");
                 initUI("Login.fxml");
                 break;
-//            case CLIENT1:
-//                window.setTitle("Client 1");
-//                initUI("Client1.fxml");
-//                break;
-//            case CLIENT2:
-//                window.setTitle("Client 2");
-//                initUI("Client2.fxml");
-//                break;
-//            case CLIENT3:
-//                window.setTitle("Client 3");
-//                initUI("Client3.fxml");
-//                break;
+            case CLIENT1:
+                window.setTitle("Client 1");
+                initUI("Client1.fxml");
+                break;
+            case CLIENT2:
+                window.setTitle("Client 2");
+                initUI("Client2.fxml");
+                break;
+            case CLIENT3:
+                window.setTitle("Client 3");
+                initUI("Client3.fxml");
+                break;
             default:
                 new Alert(Alert.AlertType.ERROR, "Not suitable UI found!").show();
         }
