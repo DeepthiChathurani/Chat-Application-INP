@@ -21,7 +21,7 @@
             <Image url="@../assest/img/icons8-close-48.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="minimize" fitHeight="30.0" fitWidth="30.0" layoutX="312.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="minimize" fitHeight="30.0" fitWidth="30.0" layoutX="312.0" layoutY="16.0" onDragDetected="#btnMinimize" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assest/img/icons8-minimize-window-48%20(1).png" />
          </image>
@@ -34,12 +34,12 @@
       <TextField fx:id="txtInput" layoutX="22.0" layoutY="517.0" prefHeight="38.0" prefWidth="354.0" />
       <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="341.0" layoutY="521.0" onDragDetected="#btnsend" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assest/img/icons8-sent-48%20(1).png" />
+            <Image url="@../assest/img/icons8-send-64.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="297.0" layoutY="521.0" onDragDetected="#btnCamera" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assest/img/icons8-camera-40.png" />
+            <Image url="@../assest/img/icons8-camera-50.png" />
          </image>
       </ImageView>
    </children>

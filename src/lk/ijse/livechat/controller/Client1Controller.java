@@ -50,7 +50,7 @@ public class Client1Controller {
                 while (true) {
                     message = dataInputStream.readUTF();
                     if (message.equals("Image")) {
-                        receiveImageFromServer();
+//                        receiveImageFromServer();
                     }else if (!message.equalsIgnoreCase("Finish")) {
                         Label label = new Label(message);
                         Platform.runLater(() -> {
@@ -69,6 +69,7 @@ public class Client1Controller {
 
 
     public void btnsend(MouseEvent mouseEvent) {
+
     }
 
     public void btnCamera(MouseEvent mouseEvent) {
