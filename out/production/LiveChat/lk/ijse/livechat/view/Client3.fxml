@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="pane" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.livechat.controller.Client3Controller">
+   <children>
+      <Label layoutX="20.0" layoutY="22.0" prefHeight="17.0" prefWidth="183.0" text="Chat Room">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="354.0" layoutY="14.0" onDragDetected="#btnClose" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assest/img/icons8-close-48.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="minimize" fitHeight="32.0" fitWidth="32.0" layoutX="312.0" layoutY="14.0" onDragDetected="#btnMinimize" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assest/img/icons8-minimize-window-48%20(1).png" />
+         </image>
+      </ImageView>
+      <ScrollPane fx:id="scrollPane" layoutX="35.0" layoutY="90.0" prefHeight="404.0" prefWidth="336.0">
+         <content>
+            <VBox fx:id="txtOutput" prefHeight="405.0" prefWidth="334.0" />
+         </content>
+      </ScrollPane>
+      <TextField fx:id="txtInput" layoutX="35.0" layoutY="526.0" prefHeight="41.0" prefWidth="336.0" />
+      <ImageView fitHeight="34.0" fitWidth="32.0" layoutX="338.0" layoutY="530.0" onDragDetected="#btnSend" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assest/img/icons8-send-64.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="34.0" fitWidth="32.0" layoutX="296.0" layoutY="530.0" onDragDetected="#btnCamera" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assest/img/icons8-camera-50.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
