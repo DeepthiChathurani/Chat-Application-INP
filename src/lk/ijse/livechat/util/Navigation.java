@@ -7,14 +7,13 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Navigation {
-     private static AnchorPane ancLogin;
+     public static AnchorPane ancLogin;
     public static void navigation(Routes route, AnchorPane pane) throws IOException {
         Navigation.ancLogin = pane;
         Navigation.ancLogin.getChildren().clear();
         Stage window = (Stage) Navigation.ancLogin.getScene().getWindow();
 
         switch (route) {
-
             case LOGIN:
                 window.setTitle("Login Form");
                 initUI("Login.fxml");

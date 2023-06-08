@@ -5,19 +5,20 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.net.Socket;
 
-public class Client1Controller {
+public class Client1Controller extends Thread {
     public AnchorPane pane;
     public ImageView close;
     public ImageView minimize;
@@ -41,21 +42,36 @@ public class Client1Controller {
 
 // Disable vertical scroll bar
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        Label label3 = new Label("Client 01".trim());
+        Label label3 = new Label("Client_1".trim());
         txtOutPut.getChildren().add(label3);
 
         new Thread(() -> {
             try {
-                socket = new Socket("localhost", 3003);
+                socket = new Socket("localhost", 3004);
 
                 dataInputStream = new DataInputStream(socket.getInputStream());
                 dataOutputStream = new DataOutputStream(socket.getOutputStream());
                 while (true) {
                     message = dataInputStream.readUTF();
                     if (message.equals("Image")) {
-                       // receiveImageFromServer();
-                    }else if (!message.equalsIgnoreCase("Finish")) {
-                        Label label= new Label(message);
+                        int imageSize = dataInputStream.readInt();
+                        byte[] imageBytes = new byte[imageSize];
+                        dataInputStream.readFully(imageBytes);
+
+                        // Process the received image data
+                        ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes);
+                        Image receivedImage = new Image(bis);
+
+                        // Display the image in the client's UI
+                        ImageView imageView = new ImageView(receivedImage);
+                        Platform.runLater(() -> {
+                            txtOutPut.getChildren().add(imageView);
+                        });
+                    }
+                    /*if (message.equals("Image")) {
+                        receiveImageFromServer();*/
+                    else if (!message.equalsIgnoreCase("Finish")) {
+                        Label label = new Label(message);
                         Platform.runLater(() -> {
                             txtOutPut.getChildren().add(label);
                         });
@@ -74,9 +90,9 @@ public class Client1Controller {
     public void btnSend(MouseEvent mouseEvent) {
         try {
             dataOutputStream.writeUTF(txtInput.getText().trim());
-            reply = txtInput.getText();
-            Label label = new Label("\n\t\t\t\t\t\t\t\tClient1 :" + reply);
-            txtOutPut.getChildren().add(label);
+            reply=txtInput.getText();
+            Label label3=new Label("\n\t\t\t\t\t\t\t\tClient1 :"+reply);
+            txtOutPut.getChildren().add(label3);
             dataOutputStream.flush();
             txtInput.clear();
 
@@ -86,15 +102,45 @@ public class Client1Controller {
     }
 
     public void btnCamera(MouseEvent mouseEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+
+            try {
+                BufferedImage image = ImageIO.read(selectedFile);
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ImageIO.write(image, "png", baos);
+                byte[] imageBytes = baos.toByteArray();
+
+                Image serverImage = new Image(new ByteArrayInputStream(imageBytes));
+                ImageView imageView = new ImageView(serverImage);
+                // Send image to all clients
+                dataOutputStream.writeUTF("Image");
+                dataOutputStream.writeInt(imageBytes.length);
+                dataOutputStream.write(imageBytes);
+                Platform.runLater(() -> {
+                    txtOutPut.getChildren().add(imageView);
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
-    public void btnClose(MouseEvent mouseEvent) {
-        Stage stage =(Stage)btnclose.getScene().getWindow();
+    public void btnClose(MouseEvent event) {
+        Stage stage=(Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.close();
     }
 
-    public void btnMinimize(MouseEvent mouseEvent) {
+    public void btnMinimize(MouseEvent event) {
         Stage stage = (Stage) minimize.getScene().getWindow();
         stage.setIconified(true);
     }
+
 }

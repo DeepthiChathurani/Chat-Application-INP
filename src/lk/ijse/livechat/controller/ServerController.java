@@ -1,19 +1,20 @@
 package lk.ijse.livechat.controller;
 
 import javafx.application.Platform;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -54,11 +55,11 @@ public class ServerController {
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         new Thread(() -> {
             try {
-                serverSocket1= new ServerSocket(3002);
+                serverSocket1 = new ServerSocket(3004);
                 Label label = new Label("Server Start");
                 txtOutPut.getChildren().add(label);
                 socket1 = serverSocket1.accept();
-                Label label2 = new Label("\nClientOne Start");
+                Label label2 = new Label("\nClient1 Start");
                 Platform.runLater(() -> {
                     txtOutPut.getChildren().add(label2);
                 });
@@ -71,10 +72,6 @@ public class ServerController {
                     Platform.runLater(() -> {
                         txtOutPut.getChildren().add(label3);
                     });
-//                    if (message1.equals("Image")) {
-//                        forwardImageToClient(dataInputStream1, dataOutputStream2);
-//                        forwardImageToClient(dataInputStream1, dataOutputStream3);
-//                    }
                     dataOutputStream2.writeUTF("Client1 :" + message1.trim());
                     dataOutputStream3.writeUTF("Client1 :" + message1.trim());
                     dataOutputStream2.flush();
@@ -88,7 +85,7 @@ public class ServerController {
 
         new Thread(() -> {
             try {
-                serverSocket2 = new ServerSocket(3060);
+                serverSocket2 = new ServerSocket(3063);
                 Label label4 = new Label("Server Start");
                 txtOutPut.getChildren().add(label4);
                 socket2 = serverSocket2.accept();
@@ -106,10 +103,6 @@ public class ServerController {
                     Platform.runLater(() -> {
                         txtOutPut.getChildren().add(label6);
                     });
-//                    if (message2.equals("Image")) {
-//                        forwardImageToClient(dataInputStream2, dataOutputStream1);
-//                        forwardImageToClient(dataInputStream2, dataOutputStream3);
-//                    }
                     dataOutputStream1.writeUTF("Client2 :" + message2.trim());
                     dataOutputStream3.writeUTF("Client2 :" + message2.trim());
 
@@ -129,7 +122,7 @@ public class ServerController {
 
         new Thread(() -> {
             try {
-                serverSocket3 = new ServerSocket(5700);
+                serverSocket3 = new ServerSocket(5702);
                 Label label = new Label("Server Start");
                 txtOutPut.getChildren().add(label);
                 socket3 = serverSocket3.accept();
@@ -148,10 +141,10 @@ public class ServerController {
                     Platform.runLater(() -> {
                         txtOutPut.getChildren().add(label2);
                     });
-//                    if (message3.equals("Image")) {
-//                        forwardImageToClient(dataInputStream3, dataOutputStream1);
-//                        forwardImageToClient(dataInputStream3, dataOutputStream2);
-//                    }
+                    /*if (message.equals("Image")) {
+                        forwardImageToClient(dataInputStream, dataOutputStream);
+                        forwardImageToClient(dataInputStream, dataOutputStream2);
+                    }*/
                     dataOutputStream1.writeUTF("Client3 :" + message3.trim());
                     dataOutputStream2.writeUTF("Client3 :" + message3.trim());
 
@@ -199,5 +192,50 @@ public class ServerController {
     }
 
     public void btnCamera(MouseEvent mouseEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+
+            try {
+                BufferedImage image = ImageIO.read(selectedFile);
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                ImageIO.write(image, "png", baos);
+                byte[] imageBytes = baos.toByteArray();
+
+                Image serverImage = new Image(new ByteArrayInputStream(imageBytes));
+                ImageView imageView = new ImageView(serverImage);
+                // Send image to all clients
+                dataOutputStream1.writeUTF("Image");
+                dataOutputStream1.writeInt(imageBytes.length);
+                dataOutputStream1.write(imageBytes);
+
+                dataOutputStream1.flush();
+
+                dataOutputStream2.writeUTF("Image");
+                dataOutputStream2.writeInt(imageBytes.length);
+                dataOutputStream2.write(imageBytes);
+                dataOutputStream2.flush();
+
+                dataOutputStream3.writeUTF("Image");
+                dataOutputStream3.writeInt(imageBytes.length);
+                dataOutputStream3.write(imageBytes);
+
+                dataOutputStream3.flush();
+
+                // Display the image in the server's UI
+                Platform.runLater(() -> {
+                    txtOutPut.getChildren().add(imageView);
+                });
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
