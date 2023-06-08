@@ -15,17 +15,35 @@ public class LoginController {
     public Label lblMessage;
     public AnchorPane pane;
 
-    public void btnLogin(ActionEvent actionEvent) throws IOException {
-        String userName= txtUserName.getText();
-        if(userName.equals("Client1")){
-            Navigation.navigation(Routes.CLIENT1,pane);
+    public String userName;
+
+    public void btnLogin(ActionEvent actionEvent) {
+        userName = txtUserName.getText();
+        if (userName.equals("Client1")) {
+            try {
+                Navigation.navigation(Routes.CLIENT1, pane);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
         } else if (userName.equals("Client2")) {
-            Navigation.navigation(Routes.CLIENT2,pane);
-        }else if (userName.equals("Client3")) {
-            Navigation.navigation(Routes.CLIENT3,pane);
-        }else {
+
+            try {
+                Navigation.navigation(Routes.CLIENT2, pane);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        } else if (userName.equals("Client3")) {
+
+            try {
+                Navigation.navigation(Routes.CLIENT3, pane);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+        } else {
             lblMessage.setVisible(true);
-//            lblLoginMessage.setText("Invalid Login, Please try again!");
         }
     }
 }

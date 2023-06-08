@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -63,11 +64,18 @@ public class Client3Controller {
     }
 
     public void btnClose(MouseEvent mouseEvent) {
+        Stage stage =(Stage)close.getScene().getWindow();
+        stage.close();
     }
 
     public void btnSend(MouseEvent mouseEvent) {
     }
 
     public void btnCamera(MouseEvent mouseEvent) {
+    }
+
+    public void btnMinimize(MouseEvent mouseEvent) {
+        Stage stage = (Stage) minimize.getScene().getWindow();
+        stage.setIconified(true);
     }
 }
