@@ -1,6 +1,7 @@
 package lk.ijse.livechat.controller;
 
 import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -8,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -22,6 +24,7 @@ public class Client1Controller {
     public ScrollPane scrollPane;
     public VBox txtOutPut;
     public TextField txtInput;
+    public ImageView btnclose;
 
     DataInputStream dataInputStream;
     DataOutputStream dataOutputStream;
@@ -43,16 +46,16 @@ public class Client1Controller {
 
         new Thread(() -> {
             try {
-                socket = new Socket("localhost", 3002);
+                socket = new Socket("localhost", 3003);
 
                 dataInputStream = new DataInputStream(socket.getInputStream());
                 dataOutputStream = new DataOutputStream(socket.getOutputStream());
                 while (true) {
                     message = dataInputStream.readUTF();
                     if (message.equals("Image")) {
-//                        receiveImageFromServer();
+                       // receiveImageFromServer();
                     }else if (!message.equalsIgnoreCase("Finish")) {
-                        Label label = new Label(message);
+                        Label label= new Label(message);
                         Platform.runLater(() -> {
                             txtOutPut.getChildren().add(label);
                         });
@@ -68,10 +71,30 @@ public class Client1Controller {
     }
 
 
-    public void btnsend(MouseEvent mouseEvent) {
+    public void btnSend(MouseEvent mouseEvent) {
+        try {
+            dataOutputStream.writeUTF(txtInput.getText().trim());
+            reply = txtInput.getText();
+            Label label = new Label("\n\t\t\t\t\t\t\t\tClient1 :" + reply);
+            txtOutPut.getChildren().add(label);
+            dataOutputStream.flush();
+            txtInput.clear();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void btnCamera(MouseEvent mouseEvent) {
+    }
+
+    public void btnClose(MouseEvent mouseEvent) {
+        Stage stage =(Stage)btnclose.getScene().getWindow();
+        stage.close();
+    }
+
+    public void btnMinimize(MouseEvent mouseEvent) {
+        Stage stage = (Stage) minimize.getScene().getWindow();
+        stage.setIconified(true);
     }
 }

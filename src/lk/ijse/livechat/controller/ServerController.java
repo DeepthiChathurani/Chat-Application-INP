@@ -23,6 +23,8 @@ public class ServerController {
     public VBox txtOutPut;
     public ImageView minimize;
     public TextField txtInput;
+    public ImageView close;
+    public ImageView send;
 
     ServerSocket serverSocket1;
     Socket socket1;
@@ -167,7 +169,7 @@ public class ServerController {
         }).start();
     }
     public void btnClose(MouseEvent mouseEvent) {
-        Stage stage = (Stage) ((Node)  mouseEvent.getSource()).getScene().getWindow();
+        Stage stage = (Stage) close.getScene().getWindow();
         stage.close();
     }
 

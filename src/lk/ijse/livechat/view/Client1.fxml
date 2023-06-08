@@ -16,7 +16,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <ImageView fx:id="close" fitHeight="30.0" fitWidth="32.0" layoutX="356.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="btnclose" fitHeight="30.0" fitWidth="32.0" layoutX="356.0" layoutY="16.0" onDragDetected="#btnClose" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assest/img/icons8-close-48.png" />
          </image>
@@ -32,7 +32,7 @@
          </content>
       </ScrollPane>
       <TextField fx:id="txtInput" layoutX="22.0" layoutY="517.0" prefHeight="38.0" prefWidth="354.0" />
-      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="341.0" layoutY="521.0" onDragDetected="#btnsend" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="341.0" layoutY="521.0" onDragDetected="#btnSend" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assest/img/icons8-send-64.png" />
          </image>

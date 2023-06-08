@@ -37,6 +37,6 @@ public class Navigation {
     }
     private static void initUI(String location) throws IOException {
         Navigation.ancLogin.getChildren().add(FXMLLoader.load(Navigation.class
-                .getResource("/lk/ijse/livechat/view" + location)));
+                .getResource("/lk/ijse/livechat/view/" + location)));
     }
 }

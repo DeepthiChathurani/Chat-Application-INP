@@ -21,7 +21,7 @@
             <VBox fx:id="txtOutPut" prefHeight="395.0" prefWidth="326.0" />
          </content>
       </ScrollPane>
-      <ImageView fitHeight="26.0" fitWidth="30.0" layoutX="356.0" layoutY="13.0" onDragDetected="#btnClose" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="close" fitHeight="26.0" fitWidth="30.0" layoutX="356.0" layoutY="13.0" onDragDetected="#btnClose" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assest/img/icons8-close-48.png" />
          </image>
@@ -32,7 +32,7 @@
          </image>
       </ImageView>
       <TextField fx:id="txtInput" layoutX="48.0" layoutY="519.0" prefHeight="41.0" prefWidth="320.0" />
-      <ImageView fitHeight="30.0" fitWidth="28.0" layoutX="330.0" layoutY="525.0" onDragDetected="#btnSend" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="send" fitHeight="30.0" fitWidth="28.0" layoutX="330.0" layoutY="525.0" onDragDetected="#btnSend" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assest/img/icons8-send-64.png" />
          </image>
