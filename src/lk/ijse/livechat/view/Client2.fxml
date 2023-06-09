@@ -26,22 +26,22 @@
             <Font name="System Italic" size="12.0" />
          </font>
       </TextField>
-      <ImageView fx:id="close" fitHeight="30.0" fitWidth="33.0" layoutX="349.0" layoutY="13.0" onDragDetected="#btnClose" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="close" fitHeight="30.0" fitWidth="33.0" layoutX="349.0" layoutY="13.0" onMouseClicked="#btnClose" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assest/img/icons8-close-48.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="minimize" fitHeight="30.0" fitWidth="30.0" layoutX="308.0" layoutY="13.0" onDragDetected="#btnMinimize" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="minimize" fitHeight="30.0" fitWidth="30.0" layoutX="308.0" layoutY="13.0" onMouseClicked="#btnMinimize" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assest/img/icons8-minimize-window-48%20(1).png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="29.0" fitWidth="31.0" layoutX="334.0" layoutY="526.0" onDragDetected="#btnSend" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="29.0" fitWidth="31.0" layoutX="334.0" layoutY="526.0" onMouseClicked="#btnSend" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assest/img/icons8-send-64.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="29.0" fitWidth="29.0" layoutX="288.0" layoutY="526.0" onDragDetected="#btnCamera" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="29.0" fitWidth="29.0" layoutX="288.0" layoutY="526.0" onMouseClicked="#btnCamera" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assest/img/icons8-camera-50.png" />
          </image>
