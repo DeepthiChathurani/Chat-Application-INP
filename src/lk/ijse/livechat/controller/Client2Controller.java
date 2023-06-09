@@ -18,7 +18,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
 
-public class Client2Controller extends Thread {
+public class Client2Controller{
     public AnchorPane pane;
     public ScrollPane scrollPane;
     public VBox txtOutPut;

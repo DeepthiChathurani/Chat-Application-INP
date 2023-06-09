@@ -20,7 +20,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
 
-public class Client3Controller extends Thread{
+public class Client3Controller {
     public AnchorPane pane;
     public ImageView minimize;
     public ScrollPane scrollPane;

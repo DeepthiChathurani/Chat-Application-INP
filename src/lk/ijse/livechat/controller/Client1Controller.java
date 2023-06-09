@@ -18,7 +18,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
 
-public class Client1Controller extends Thread {
+public class Client1Controller  {
     public AnchorPane pane;
     public ImageView close;
     public ImageView minimize;
