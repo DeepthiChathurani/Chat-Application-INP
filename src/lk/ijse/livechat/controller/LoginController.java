@@ -82,6 +82,8 @@ public class LoginController {
     }
 
     public void btnClose(MouseEvent mouseEvent) {
+        Stage stage=(Stage) close.getScene().getWindow();
+        stage.close();
     }
 
     public void btnMinimize(MouseEvent mouseEvent) {
