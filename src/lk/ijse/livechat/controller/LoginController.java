@@ -87,5 +87,7 @@ public class LoginController {
     }
 
     public void btnMinimize(MouseEvent mouseEvent) {
+        Stage stage = (Stage) minimize.getScene().getWindow();
+        stage.setIconified(true);
     }
 }
