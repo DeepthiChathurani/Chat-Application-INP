@@ -7,6 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -24,6 +26,8 @@ public class LoginController {
     public AnchorPane pane;
 
     public String userName;
+    public ImageView close;
+    public ImageView minimize;
     private Object Style;
 
     public void btnLogin(ActionEvent actionEvent) {
@@ -75,5 +79,11 @@ public class LoginController {
         } else {
             lblMessage.setVisible(true);
         }
+    }
+
+    public void btnClose(MouseEvent mouseEvent) {
+    }
+
+    public void btnMinimize(MouseEvent mouseEvent) {
     }
 }
