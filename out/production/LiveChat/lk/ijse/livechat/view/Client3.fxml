@@ -16,12 +16,12 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <ImageView fx:id="close" fitHeight="32.0" fitWidth="32.0" layoutX="354.0" layoutY="14.0" onDragDetected="#btnClose" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="close" fitHeight="32.0" fitWidth="32.0" layoutX="354.0" layoutY="14.0" onMouseClicked="#btnClose" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assest/img/icons8-close-48.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="minimize" fitHeight="32.0" fitWidth="32.0" layoutX="312.0" layoutY="14.0" onDragDetected="#btnMinimize" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="minimize" fitHeight="32.0" fitWidth="32.0" layoutX="312.0" layoutY="14.0" onMouseClicked="#btnMinimize" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assest/img/icons8-minimize-window-48%20(1).png" />
          </image>
@@ -32,12 +32,12 @@
          </content>
       </ScrollPane>
       <TextField fx:id="txtInput" layoutX="35.0" layoutY="526.0" prefHeight="41.0" prefWidth="336.0" />
-      <ImageView fitHeight="34.0" fitWidth="32.0" layoutX="338.0" layoutY="530.0" onDragDetected="#btnSend" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="34.0" fitWidth="32.0" layoutX="338.0" layoutY="530.0" onMouseClicked="#btnSend" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assest/img/icons8-send-64.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="34.0" fitWidth="32.0" layoutX="296.0" layoutY="530.0" onDragDetected="#btnCamera" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="34.0" fitWidth="32.0" layoutX="296.0" layoutY="530.0" onMouseClicked="#btnCamera" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assest/img/icons8-camera-50.png" />
          </image>

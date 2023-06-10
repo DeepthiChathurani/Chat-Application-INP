@@ -45,7 +45,7 @@ public class Client3Controller {
 
         new Thread(()->{
             try {
-                socket=new Socket("localhost",5702);
+                socket=new Socket("localhost",5706);
                 dataInputStream=new DataInputStream(socket.getInputStream());
                 dataOutputStream=new DataOutputStream(socket.getOutputStream());
                 while (true) {
@@ -83,22 +83,18 @@ public class Client3Controller {
         stage.close();
     }
 
-    public void btnSend(MouseEvent mouseEvent) throws IOException {
-        dataOutputStream.writeUTF(txtInput.getText().trim());
-        reply=txtInput.getText();
-        HBox hbox = new HBox();
-        hbox.setAlignment(Pos.CENTER_RIGHT);
-        Label label3=new Label("Client3 :"+reply);
-        label3.setPrefWidth(150);
-        label3.setWrapText(true);
-        label3.setMaxHeight(Double.MAX_VALUE);
-        label3.setStyle("-fx-font-size:12px;-fx-background-color: lightblue; -fx-background-radius: 10; -fx-text-alignment:left ; -fx-padding:1 0 0 2; ");
-        hbox.getChildren().add(label3);
+    public void btnSend(MouseEvent mouseEvent) {
+        try {
+            dataOutputStream.writeUTF(txtInput.getText().trim());
+            reply=txtInput.getText();
+            Label label3=new Label("\n\t\t\t\t\t\t\t\tClient3 :"+reply);
+            txtOutput.getChildren().add(label3);
+            dataOutputStream.flush();
+            txtInput.clear();
 
-        txtOutput.getChildren().add(hbox);
-
-        dataOutputStream.flush();
-        txtInput.clear();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -111,27 +107,23 @@ public class Client3Controller {
 
         File selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
+
             try {
                 BufferedImage image = ImageIO.read(selectedFile);
 
-                // Convert BufferedImage to JavaFX Image
-                Image javafxImage = SwingFXUtils.toFXImage(image, null);
-
-                // Create an ImageView to display the image
-                ImageView imageView = new ImageView(javafxImage);
-                txtOutput.getChildren().add(imageView);
-
-                // Send image to the server
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 ImageIO.write(image, "png", baos);
                 byte[] imageBytes = baos.toByteArray();
 
-                // Send image to the server
+                Image serverImage = new Image(new ByteArrayInputStream(imageBytes));
+                ImageView imageView = new ImageView(serverImage);
+                // Send image to all clients
                 dataOutputStream.writeUTF("Image");
                 dataOutputStream.writeInt(imageBytes.length);
                 dataOutputStream.write(imageBytes);
-                dataOutputStream.flush();
-
+                Platform.runLater(() -> {
+                    txtOutput.getChildren().add(imageView);
+                });
             } catch (IOException e) {
                 e.printStackTrace();
             }

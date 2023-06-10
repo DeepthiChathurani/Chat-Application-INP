@@ -17,6 +17,8 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Client2Controller{
     public AnchorPane pane;
@@ -43,7 +45,7 @@ public class Client2Controller{
 
         new Thread(() -> {
             try {
-                socket=new Socket("localhost",3063);
+                socket=new Socket("localhost",3068);
 
                 dataOutputStream=new DataOutputStream(socket.getOutputStream());
                 dataInputStream=new DataInputStream(socket.getInputStream());
@@ -62,7 +64,9 @@ public class Client2Controller{
                         ImageView imageView = new ImageView(receivedImage);
                         Platform.runLater(() -> {
                             txtOutPut.getChildren().add(imageView);
-                        });                    } else if (!message.equalsIgnoreCase("Finish")) {
+                        });
+                    }
+                    if (!message.equalsIgnoreCase("Finish")) {
                         Label label1 = new Label(message);
                         Platform.runLater(() -> {
                             txtOutPut.getChildren().add(label1);
@@ -107,27 +111,23 @@ public class Client2Controller{
 
         File selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
+
             try {
                 BufferedImage image = ImageIO.read(selectedFile);
 
-                // Convert BufferedImage to JavaFX Image
-                Image javafxImage = SwingFXUtils.toFXImage(image, null);
-
-                // Create an ImageView to display the image
-                ImageView imageView = new ImageView(javafxImage);
-                txtOutPut.getChildren().add(imageView);
-
-                // Send image to the server
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 ImageIO.write(image, "png", baos);
                 byte[] imageBytes = baos.toByteArray();
 
-                // Send image to the server
+                Image serverImage = new Image(new ByteArrayInputStream(imageBytes));
+                ImageView imageView = new ImageView(serverImage);
+                // Send image to all clients
                 dataOutputStream.writeUTF("Image");
                 dataOutputStream.writeInt(imageBytes.length);
                 dataOutputStream.write(imageBytes);
-                dataOutputStream.flush();
-
+                Platform.runLater(() -> {
+                    txtOutPut.getChildren().add(imageView);
+                });
             } catch (IOException e) {
                 e.printStackTrace();
             }

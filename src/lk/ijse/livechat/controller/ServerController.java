@@ -47,6 +47,7 @@ public class ServerController {
     String message1 = "";
     String message2 = "";
     String message3 = "";
+    private int ServerPort;
 
     public void initialize() {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -55,7 +56,7 @@ public class ServerController {
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         new Thread(() -> {
             try {
-                serverSocket1 = new ServerSocket(3004);
+                serverSocket1 = new ServerSocket(3008);
                 Label label = new Label("Server Start");
                 txtOutPut.getChildren().add(label);
                 socket1 = serverSocket1.accept();
@@ -77,15 +78,14 @@ public class ServerController {
                     dataOutputStream2.flush();
                     dataOutputStream3.flush();
                 }
-                dataInputStream1.close();
-                dataOutputStream1.close();
             } catch (IOException e) {
+                e.printStackTrace();
             }
         }).start();
 
         new Thread(() -> {
             try {
-                serverSocket2 = new ServerSocket(3063);
+                serverSocket2 = new ServerSocket(3068);
                 Label label4 = new Label("Server Start");
                 txtOutPut.getChildren().add(label4);
                 socket2 = serverSocket2.accept();
@@ -111,9 +111,8 @@ public class ServerController {
 
 
                 }
-                dataInputStream2.close();
-                dataOutputStream2.close();
-
+//                dataInputStream2.close();
+//                dataOutputStream2.close();
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -122,7 +121,7 @@ public class ServerController {
 
         new Thread(() -> {
             try {
-                serverSocket3 = new ServerSocket(5702);
+                serverSocket3 = new ServerSocket(5706);
                 Label label = new Label("Server Start");
                 txtOutPut.getChildren().add(label);
                 socket3 = serverSocket3.accept();
@@ -153,8 +152,8 @@ public class ServerController {
 
 
                 }
-                dataInputStream3.close();
-                dataOutputStream3.close();
+//                dataInputStream3.close();
+//                dataOutputStream3.close();
 
 
             } catch (Exception e) {
@@ -173,25 +172,25 @@ public class ServerController {
 
     public void btnSend(MouseEvent mouseEvent) throws IOException {
         dataOutputStream1.writeUTF("Server :" + txtInput.getText().trim());
-        Label label = new Label("\n\t\t\t\t\t\t\t\t\t\t\tServer :" + txtInput.getText());
-        txtOutPut.getChildren().add(label);
+        Label label1 = new Label("\n\t\t\t\t\t\t\t\t\tServer :" + txtInput.getText());
+        txtOutPut.getChildren().add(label1);
         dataOutputStream1.flush();
-        txtInput.clear();
+        //txtInput.clear();
 
         dataOutputStream2.writeUTF("Server :" + txtInput.getText().trim());
-        Label label1 = new Label("\n\t\t\t\t\t\t\t\t\t\t\tServer :" + txtInput.getText());
-        txtOutPut.getChildren().add(label1);
+        Label label2 = new Label("\n\t\t\t\t\t\t\t\t\tServer :" + txtInput.getText());
+        txtOutPut.getChildren().add(label2);
         dataOutputStream2.flush();
-        txtInput.clear();
+        //txtInput.clear();
 
         dataOutputStream3.writeUTF("Server :" + txtInput.getText().trim());
-        Label label2 = new Label("\n\t\t\t\t\t\t\t\t\t\t\tServer :" + txtInput.getText());
-        txtOutPut.getChildren().add(label2);
+        Label label3 = new Label("\n\t\t\t\t\t\t\t\t\tServer :" + txtInput.getText());
+        txtOutPut.getChildren().add(label3);
         dataOutputStream3.flush();
         txtInput.clear();
     }
 
-    public void btnCamera(MouseEvent mouseEvent) {
+    public void btnCamera()  {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Image");
         fileChooser.getExtensionFilters().addAll(

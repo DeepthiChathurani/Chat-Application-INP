@@ -47,14 +47,14 @@ public class Client1Controller  {
 
         new Thread(() -> {
             try {
-                socket = new Socket("localhost", 3004);
+                socket = new Socket("localhost", 3008);
 
                 dataInputStream = new DataInputStream(socket.getInputStream());
                 dataOutputStream = new DataOutputStream(socket.getOutputStream());
                 while (true) {
                     message = dataInputStream.readUTF();
                     if (message.equals("Image")) {
-                        int imageSize = dataInputStream.readInt();
+                        int imageSize = dataInputStream.readShort();
                         byte[] imageBytes = new byte[imageSize];
                         dataInputStream.readFully(imageBytes);
 
@@ -70,7 +70,7 @@ public class Client1Controller  {
                     }
                     /*if (message.equals("Image")) {
                         receiveImageFromServer();*/
-                    else if (!message.equalsIgnoreCase("Finish")) {
+                 if (!message.equalsIgnoreCase("Finish")) {
                         Label label = new Label(message);
                         Platform.runLater(() -> {
                             txtOutPut.getChildren().add(label);
@@ -101,7 +101,7 @@ public class Client1Controller  {
         }
     }
 
-    public void btnCamera(MouseEvent mouseEvent) {
+    public void btnCamera() throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Image");
         fileChooser.getExtensionFilters().addAll(
@@ -121,12 +121,15 @@ public class Client1Controller  {
                 Image serverImage = new Image(new ByteArrayInputStream(imageBytes));
                 ImageView imageView = new ImageView(serverImage);
                 // Send image to all clients
-                dataOutputStream.writeUTF("Image");
-                dataOutputStream.writeInt(imageBytes.length);
-                dataOutputStream.write(imageBytes);
+               // dataOutputStream.writeUTF("Image");
+                //dataOutputStream.writeInt(imageBytes.length);
+                //dataOutputStream.write(imageBytes);
+                dataOutputStream.write(imageBytes,0, imageBytes.length);
                 Platform.runLater(() -> {
                     txtOutPut.getChildren().add(imageView);
+
                 });
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
